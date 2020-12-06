@@ -5,6 +5,10 @@ const notFound = (req, res, next) => {
 }
 
 const errorHandler = (err, req, res, next) => {
+  if(err.message == "Invalid Credentials") {
+    res.status(401)
+  }
+
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode
   res.status(statusCode)
   res.json({
