@@ -45,6 +45,23 @@ const getUserProfile = async (req, res) => {
   res.send(req.user)
 }
 
+// @desc Get user profile
+// @route PUT /api/users/profile
+// @access Private
+const updateUserProfile = async (req, res) => {
+  const user = req.user
+  if(user) {
+    user.name = req.body.name || user.name
+    user.email = req.body.email || user.email
+    if (req.body.password) {
+      user.password = req.body.password
+    }
+  await user.save()
+  res.json(user)
+  }
+}
 
 
-export { authUser, getUserProfile, registerUser }
+
+
+export { authUser, getUserProfile, updateUserProfile, registerUser }
